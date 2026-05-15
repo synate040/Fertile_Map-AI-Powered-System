@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Manager - FERTILE MAP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/database.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>FERTILE MAP</h2>
+                <p class="user-role" id="userRole">Loading...</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-link">
+                    <span class="icon"><i class="bi bi-graph-up"></i></span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="capture.html" class="nav-link">
+                    <span class="icon"><i class="bi bi-camera"></i></span>
+                    <span>Soil Analysis</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <span class="icon"><i class="bi bi-file-text"></i></span>
+                    <span>History</span>
+                </a>
+                <a href="education.html" class="nav-link">
+                    <span class="icon"><i class="bi bi-book"></i></span>
+                    <span>Education</span>
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <span class="icon"><i class="bi bi-person"></i></span>
+                    <span>Profile</span>
+                </a>
+                <div id="adminLinksContainer"></div>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <h1>Database Manager</h1>
+                <div class="header-actions">
+                    <button id="refreshBtn" class="btn btn-primary" title="Refresh database info">
+                        <i class="bi bi-arrow-clockwise"></i> Refresh
+                    </button>
+                    <button id="exportBtn" class="btn btn-success" title="Export database">
+                        <i class="bi bi-download"></i> Export All
+                    </button>
+                </div>
+            </header>
+
+            <!-- Database Info Section -->
+            <section class="database-info-section">
+                <div class="info-card">
+                    <h3>Database Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Database Path:</label>
+                            <span id="dbPath">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>File Size:</label>
+                            <span id="dbSize">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Total Tables:</label>
+                            <span id="totalTables">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tables Overview -->
+            <section class="tables-overview-section">
+                <h2>Tables</h2>
+                <div id="tablesOverview" class="tables-grid">
+                    <!-- Dynamically populated -->
+                </div>
+            </section>
+
+            <!-- Table Data Section -->
+            <section class="table-data-section">
+                <div class="table-header">
+                    <h2>Table Data</h2>
+                    <div class="table-controls">
+                        <select id="tableSelect" class="form-control">
+                            <option value="">Select a table to view...</option>
+                        </select>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search records...">
+                    </div>
+                </div>
+
+                <!-- Table Schema Info -->
+                <div id="schemaInfo" class="schema-info" style="display: none;">
+                    <h3>Table Schema</h3>
+                    <table class="schema-table">
+                        <thead>
+                            <tr>
+                                <th>Column Name</th>
+                                <th>Type</th>
+                                <th>Primary Key</th>
+                                <th>Not Null</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schemaBody">
+                            <!-- Dynamically populated -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Table Records -->
+                <div id="tableDataContainer" class="table-data-container" style="display: none;">
+                    <div class="records-header">
+                        <h3 id="recordsTitle">Records</h3>
+                        <span id="recordCount" class="record-count">0 records</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="dataTable" class="data-table">
+                            <thead id="tableHead">
+                                <!-- Dynamically populated -->
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Dynamically populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- No Table Selected -->
+                <div id="noTableSelected" class="no-data-message">
+                    <p>👇 Select a table from the dropdown above to view its data</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/api.js"></script>
+    <script src="../js/database.js"></script>
+</body>
+</html>

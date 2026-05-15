@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — SoilSense</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/"><i class="bi bi-leaf"></i><span class="brand-name">SoilSense</span></a>
+        </div>
+        <div class="nav-links">
+            <a href="/pages/dashboard.html">Dashboard</a>
+            <a href="/pages/admin.html" class="active"><i class="bi bi-shield-check"></i> Admin Panel</a>
+            <a href="/pages/database.html"><i class="bi bi-database"></i> Database</a>
+            <a href="/pages/capture.html">New Analysis</a>
+            <a href="#" onclick="logout()" class="btn btn-outline">Logout</a>
+        </div>
+    </nav>
+
+    <main class="admin-container">
+        <!-- Admin Header -->
+        <div class="admin-header">
+            <h1><i class="bi bi-shield-check"></i> Admin Control Panel</h1>
+            <p>Manage users and system statistics</p>
+        </div>
+
+        <!-- Stats Section -->
+        <section class="admin-stats">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="bi bi-people"></i></div>
+                <div class="stat-content">
+                    <h3>Total Users</h3>
+                    <p class="stat-number" id="totalUsers">-</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="bi bi-crown"></i></div>
+                <div class="stat-content">
+                    <h3>Admin Users</h3>
+                    <p class="stat-number" id="adminCount">-</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="bi bi-flask"></i></div>
+                <div class="stat-content">
+                    <h3>Total Analyses</h3>
+                    <p class="stat-number" id="totalAnalyses">-</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Management Section -->
+        <section class="admin-section">
+            <div class="section-header">
+                <h2><i class="bi bi-person"></i> User Management</h2>
+                <button class="btn btn-primary btn-sm" onclick="refreshUsers()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+            </div>
+
+            <div class="user-filters">
+                <input type="text" id="searchUsers" placeholder="Search users by email..." class="search-input">
+            </div>
+
+            <div class="users-table-container">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>Full Name</th>
+                            <th>Farm Name</th>
+                            <th>Role</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr>
+                            <td colspan="7" class="loading-text">Loading users...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Role Modal -->
+        <div id="roleModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Change User Role</h2>
+                    <button class="close-btn" onclick="closeRoleModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="roleUserInfo"></p>
+                    <div class="role-options">
+                        <label class="radio-label">
+                            <input type="radio" name="userRole" value="user" onchange="updateUserRolePreview()">
+                            <span><i class="bi bi-person"></i> Regular User</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="userRole" value="admin" onchange="updateUserRolePreview()">
+                            <span><i class="bi bi-crown"></i> Admin</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeRoleModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveUserRole()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirm Delete Modal -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content modal-danger">
+                <div class="modal-header">
+                    <h2><i class="bi bi-exclamation-triangle"></i> Delete User</h2>
+                    <button class="close-btn" onclick="closeDeleteModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="deleteUserInfo"></p>
+                    <p class="warning-text">This action cannot be undone. All user data will be permanently deleted.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+                    <button class="btn btn-danger" onclick="confirmDeleteUser()">Delete User</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/auth.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>
